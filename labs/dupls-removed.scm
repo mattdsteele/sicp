@@ -1,0 +1,6 @@
+(define (dupls-removed list)
+  (if (equal? list '())
+      '()
+      (if (member? (first list) (butfirst list))
+	  (dupls-removed (butfirst list))
+	  (sentence (first list) (dupls-removed (butfirst list))))))

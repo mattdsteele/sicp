@@ -1,0 +1,120 @@
+SICP
+Chapter 1 Problems
+
+1.1
+	10
+	12
+	8
+	3
+	6
+	n/a
+	n/a
+	19
+	false
+	4
+	16
+	6
+	16
+	
+1.2
+  (/ (+ 5 4 (- 2 (- 3 (+ 6 (/ 4 5))))) (* 3 (- 6 2) (- 2 7)))
+
+1.4
+	The clause (if (> b 0) + -) returns the appropriate operator depending on b's sign.
+	This has the same effect as if the absolute value of b were calculated and added to a.
+
+1.5
+	Using applicative-order evaluation, the expression will never terminate.  That is,
+	the (p) sub-expression will recursively evaluate to itself and never end.  Using
+	normal-order evaluation, the expression will be expanded to:
+	
+		(if (= 0 0)
+			0
+			(p))
+			
+	Since the evaluation rule for the if special form first evaluates the predicate, the
+	(p) expression is never needed and so the infinite recursion never happens.
+	
+1.6
+  It will go into an infinite loop because the else-clause will be evaluated whether
+  the predicate is true or not.  This is because the interpreter uses applicative-order
+  evaluation.
+
+1.7
+  Our square-root procedure isn't good for finding the square roots of very small
+  numbers since the good-enough? predicate has a fixed number against which it
+  compares the guess and actual value.  For example, (sqrt 0.0001) will fail to find
+  a good guess since it's already smaller than the resolution of good-enough?:
+
+	> (square (sqrt 0.0001))
+	0.0010438358335233748
+
+  Likewise, for very large numbers, limited precision will truncate lower place-value
+  digits of the numbers and provide a false result.  For example, (sqrt 123456789e32)
+  may not converge to a good value:
+
+	> (square (sqrt 123456789e32))
+	1.23456789e+40
+	
+  See file sqrt-1.7.scm for the new version of sqrt.  It works better for small
+  numbers, but not for large, and I don't think this particular improvement will help
+  with that problem.
+
+1.8
+  (+ 4 5)
+  (inc (+ 3 5))
+  (inc (inc (+ 2 5)))
+  (inc (inc (inc (+ 1 5))))
+  (inc (inc (inc (inc (+ 0 5)))))
+  (inc (inc (inc (inc 5))))
+  (inc (inc (inc 6)))
+  (inc (inc 7))
+  (inc 8)
+  9
+
+  (+ 4 5)
+  (+ 3 6)
+  (+ 2 7)
+  (+ 1 8)
+  (+ 0 9)
+  9
+
+1.9
+  (A 1 10)
+  (A 0 (A 1 9))
+  (A 0 (A 0 (A 1 8)))
+  ...
+  (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 1 1))))))))))
+  (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 2)))))))))
+  (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 4))))))))
+  (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 8)))))))
+  (A 0 (A 0 (A 0 (A 0 (A 0 (A 0 16))))))
+  (A 0 (A 0 (A 0 (A 0 (A 0 32)))))
+  (A 0 (A 0 (A 0 (A 0 64))))
+  (A 0 (A 0 (A 0 128)))
+  (A 0 (A 0 256))
+  (A 0 512)
+  1024
+
+  (A 2 4)
+  (A 1 (A 2 3))
+  (A 1 (A 1 (A 2 2)))
+  (A 1 (A 1 (A 1 (A 2 1))))
+  (A 1 (A 1 (A 1 2)))
+  (A 1 (A 1 (A 0 (A 1 1))))
+  (A 1 (A 1 (A 0 2)))
+  (A 1 (A 1 4))
+  (A 1 (A 0 (A 1 3)))
+  (A 1 (A 0 (A 0 (A 1 2))))
+  (A 1 (A 0 (A 0 (A 0 (A 1 1)))))
+  (A 1 (A 0 (A 0 (A 0 2)))
+  (A 1 (A 0 (A 0 4)))
+  (A 1 (A 0 8))
+  (A 1 16)
+  (A 0 (A 1 15))
+  ...
+  (A 0 32768)
+  65536
+
+  (A 3 3)
+  

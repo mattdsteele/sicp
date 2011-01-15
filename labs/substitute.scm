@@ -1,0 +1,6 @@
+(define (substitute s old new)
+  (if (equal? s '())
+      '()
+      (if (equal? (first s) old)
+	  (sentence new (substitute (bf s) old new))
+	  (sentence (first s) (substitute (bf s) old new)))))
