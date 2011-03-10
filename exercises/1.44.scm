@@ -19,14 +19,14 @@
         (f x)
         (f (+ x dx)))))
 
-(define my-impulse-function
-  (impulse-maker 0 6))
-
 (define (impulse-maker a y)
   (lambda (x)
     (if (= x a)
         y
         0)))
 
+(define my-impulse-function
+  (impulse-maker 0 6))
+
 (define (n-fold-smooth f n)
-  (repeated (smooth f) n))
+  ((repeated smooth n) f))
